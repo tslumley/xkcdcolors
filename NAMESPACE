@@ -1,0 +1,2 @@
+importFrom(grDevices,col2rgb,convertColor)
+export(nearest_named,xcolors, name2color)
