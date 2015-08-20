@@ -28,16 +28,19 @@ nearest_named<-function(color, hex_only=FALSE,max_rank=-1,Lab=TRUE){
 	} else if (is.factor(color)){#sigh
 		rgbcol<-t(col2rgb(as.character(color)))
 	}
+	if (max_rank>0 & max_rank<nrow(.color_data)) 
+		ranks<-seq_len(max_rank) 
+	else	
+		ranks<-1:nrow(.color_data)
+		
 	if (Lab){
 		labcol<-convertColor(rgbcol/255,from="sRGB",to="Lab")
-		dists<-with(.color_data, (L-labcol[,1])^2+(a-labcol[,2])^2+(b-labcol[,3])^2)
+		nearest<-knnx.index(as.matrix(.color_data[ranks,c("L","a","b")]),query=labcol,k=1)
 	} else {
-		dists<-with(.color_data, (red-rgbcol[,1])^2+(green-rgbcol[,2])^2+(blue-rgbcol[,3])^2)
+		nearest<-knnx.index(as.matrix(.color_data[ranks,c("red","green","blue")]),query=rgbcol,k=1)
 	}
-	if (max_rank>0) dists<-dists[seq_len(min(nrow(.color_data),max_rank))]
-	closest<-which.min(dists)
 	if (hex_only)
-		.color_data[closest,"hex"]
+		.color_data[nearest,"hex"]
 	else
-		.color_data[closest,]
+		.color_data[nearest,]
 }
