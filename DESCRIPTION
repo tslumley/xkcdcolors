@@ -1,8 +1,7 @@
 Package: xkcdcolors
 Type: Package
-Title: Color names from the XKCD color survey
+Title: Color Names from the XKCD Color Survey
 Version: 1.0
-Date: 2015-08-17
 Author: Thomas Lumley, using data from Randall Munroe and about 2.2e5 survey participants
 Maintainer: Thomas Lumley <t.lumley@auckland.ac.nz>
 Description: The XKCD color survey asked participants to name colours. Randall Munroe published the top thousand(roughly) names and their sRGB hex values. This package lets you use them.
